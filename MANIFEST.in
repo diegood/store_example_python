@@ -1,0 +1,2 @@
+recursive-include minimart/templates *
+recursive-include minimart/static *
