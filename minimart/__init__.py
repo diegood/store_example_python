@@ -9,16 +9,19 @@ app.config.from_object('minimart.default_settings')
 app.config.from_envvar('MINIMART_SETTINGS')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "db.sqlite3")}'
 db = SQLAlchemy(app)
-db.create_all()
 ma = Marshmallow(app)
+
 
 if not app.debug:
     import logging
     from logging.handlers import TimedRotatingFileHandler
     # https://docs.python.org/3.6/library/logging.handlers.html#timedrotatingfilehandler
-    file_handler = TimedRotatingFileHandler(os.path.join(app.config['LOG_DIR'], 'minimart.log'), 'midnight')
+    file_handler = TimedRotatingFileHandler(os.path.join(
+        app.config['LOG_DIR'], 'minimart.log'), 'midnight')
     file_handler.setLevel(logging.WARNING)
-    file_handler.setFormatter(logging.Formatter('<%(asctime)s> <%(levelname)s> %(message)s'))
+    file_handler.setFormatter(logging.Formatter(
+        '<%(asctime)s> <%(levelname)s> %(message)s'))
     app.logger.addHandler(file_handler)
-
+    
+import minimart.models
 import minimart.views

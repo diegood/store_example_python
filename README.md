@@ -50,3 +50,4 @@ For example, on Ubuntu:
   - [cookiecutter base flask](https://github.com/candidtim/cookiecutter-flask-minimal.git)
 - [dev.to](https://dev.to/nahidsaikat/flask-with-sqlalchemy-marshmallow-5aj2).
 - [sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/master/quickstart/#a-minimal-application)
+- [flask-marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/)

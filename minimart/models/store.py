@@ -1,15 +1,17 @@
-from flask_sqlalchemy import SQLAlchemy
-from app import db
+from minimart import db
 
-class store(db.Model):
-    __tablename__= 'stores'
+
+class Store(db.Model):
+    __tablename__ = 'stores'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    content = db.Column(db.String(255))
+    logo = db.Column(db.String(255))
+    address = db.Column(db.String(255))
+    work_hours = db.Column(db.String(255))
 
-    def __init__(self, title, content):
-        self.title = title
-        self.content = content
-    
+    def __init__(self, name, address):
+        self.address = address
+        self.name = name
+
     def __ref__(self):
         return self.id
