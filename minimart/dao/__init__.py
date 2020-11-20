@@ -1,3 +1,3 @@
-from dao import store
+# from minimart.dao import store
 
-store.StoreDao()
+# store.StoreDao()

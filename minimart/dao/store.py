@@ -1,5 +1,5 @@
 from minimart import ma
-from models import store
+from minimart.models import store
 
 
 class StoreDao(ma.SQLAlchemyAutoSchema):

@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -10,6 +11,7 @@ app.config.from_envvar('MINIMART_SETTINGS')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "db.sqlite3")}'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+api = Api(app)
 
 
 if not app.debug:
@@ -24,4 +26,4 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     
 import minimart.models
-import minimart.views
+import minimart.routes

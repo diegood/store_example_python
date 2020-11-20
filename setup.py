@@ -9,6 +9,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'flask',
-        'jsonify'
+        'jsonify',
+        'flask_restx'
     ],
 )
