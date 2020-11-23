@@ -51,3 +51,4 @@ For example, on Ubuntu:
 - [dev.to](https://dev.to/nahidsaikat/flask-with-sqlalchemy-marshmallow-5aj2).
 - [sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/master/quickstart/#a-minimal-application)
 - [flask-marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/)
+- [flask restx](https://flask-restx.readthedocs.io/en/latest/)
