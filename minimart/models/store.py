@@ -9,13 +9,13 @@ class Store(db.Model):
     name = db.Column(db.String(100))
     logo = db.Column(db.String(255))
     address = db.Column(db.String(255))
-    # work_hours = db.relationship(WorkingHours, backref='stores', cascade="all", lazy='dynamic')
+    work_hours = db.relationship(WorkingHours, backref=db.backref('stores', lazy='joined'), cascade="all", uselist=False)
 
-    def __init__(self, name, logo, address):
+    def __init__(self, name, logo, address, work_hours):
         self.name = name
         self.logo = logo
         self.address = address
-        # self.work_hours = work_hours
+        self.work_hours = work_hours
 
     def __ref__(self):
         return self.id
@@ -24,7 +24,7 @@ class Store(db.Model):
         return api.model('StoreBase', {
             'id': fields.Integer(readonly=True, description='The store unique identifier'),
             'name': fields.String(required=True, description='Store name', example='COCO Downtown' ),
-            'logo': fields.Url(required=True, description='Store logo url', example='https://www.sightseeingpass.com/images/attractions/attraction-images-670x270/san-francisco/attimg_cocofreshteajuice1_large.jpg'),
+            'logo': fields.String(required=True, description='Store logo url', example='https://www.sightseeingpass.com/images/attractions/attraction-images-670x270/san-francisco/attimg_cocofreshteajuice1_large.jpg'),
             'address': fields.String(required=True, description='Pysical store address', example='742 Evergreen Terrace, Springfield'),
             'work_address': fields.Nested(WorkingHours.swaggerSchema())
         })

@@ -1,5 +1,6 @@
 from minimart.dao import store as dao
 from minimart.models import store as model
+from minimart.models import working_hours as working_hours_model
 
 
 def listStore():
@@ -7,12 +8,6 @@ def listStore():
 
 
 def createStore(data):
-    # input_wh = data['work_address']
-    # wh = working_hours_model.WorkingHous(input_wh)
-    new_store = model.Store(
-        data['name'],
-        data['logo'],
-        data['address'],
-        
-    )
-    return dao.StoreDao().dump(new_store, many=True)
+    wh = working_hours_model.WorkingHours(**data['work_address'])
+    new_store = model.Store(data['name'], data['logo'], data['address'], wh)
+    return dao.StoreDao().create(new_store)

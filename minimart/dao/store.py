@@ -1,5 +1,6 @@
-from minimart import ma
+from minimart import ma, db
 from minimart.models import store
+
 
 
 class StoreDao(ma.SQLAlchemyAutoSchema):
@@ -11,5 +12,7 @@ class StoreDao(ma.SQLAlchemyAutoSchema):
     def findAll(self):
         return self.dump(self.query.all(), many=True)
 
-    def create(new_store):
-        return self.query.add_entity(new_store)
+    def create(self, new_store):
+        id= db.session.add(new_store)
+        # db.session.commit()
+        return id

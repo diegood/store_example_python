@@ -9,6 +9,7 @@ ns_store = api.namespace('Stores', description='Stores endpints')
 
 @ns_store.route('/stores', endpoint='stores')
 class StoreRoutes(Resource):
+    @ns_store.marshal_with(store_model.Store.swagger(), code=201)
     def get(self):
         return store_controller.listStore()
 

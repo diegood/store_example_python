@@ -12,12 +12,11 @@
             "env": {
                 "FLASK_APP": "minimart",
                 "FLASK_ENV": "development",
-                "FLASK_DEBUG": "0",
+                "FLASK_DEBUG": "1",
                 "MINIMART_SETTINGS": "../settings.cfg"
             },
             "args": [
-                "run",
-                "--no-debugger"
+                "run"
             ],
             "jinja": true
         }
