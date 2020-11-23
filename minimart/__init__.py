@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config.from_object('minimart.default_settings')
 app.config.from_envvar('MINIMART_SETTINGS')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "db.sqlite3")}'
-db = SQLAlchemy(app)
+db = SQLAlchemy(app, session_options={'autocommit': True})
 ma = Marshmallow(app)
 api = Api(app)
 

@@ -3,11 +3,16 @@ from minimart.models import store as model
 
 
 def listStore():
-    dataset = model.Store.query.all()
-    return dao.StoreDao().dump(dataset, many=True)
+    return dao.StoreDao().findAll()
 
 
 def createStore(data):
-    print(data)
-    # dataset = model.Store.query.all()
-    # return dao.StoreDao().dump(dataset, many=True)
+    # input_wh = data['work_address']
+    # wh = working_hours_model.WorkingHous(input_wh)
+    new_store = model.Store(
+        data['name'],
+        data['logo'],
+        data['address'],
+        
+    )
+    return dao.StoreDao().dump(new_store, many=True)
