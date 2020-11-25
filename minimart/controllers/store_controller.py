@@ -7,6 +7,10 @@ def listStore():
     return dao.StoreDao().findAll()
 
 
+def getStore(id):
+    return dao.StoreDao().findOne(id)
+
+
 def createStore(data):
     wh = working_hours_model.WorkingHours(**data['work_address'])
     new_store = model.Store(data['name'], data['logo'], data['address'], wh)

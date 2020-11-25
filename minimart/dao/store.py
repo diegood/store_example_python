@@ -1,18 +1,22 @@
 from minimart import ma, db
-from minimart.models import store
+from minimart.models.store import Store
+from minimart.dao.working_hours import WorkingHoursDao
 
 
 
 class StoreDao(ma.SQLAlchemyAutoSchema):
-    query = store.Store.query
-
+    query = Store.query
+    work_hours = ma.HyperlinkRelated(WorkingHoursDao)
     class Meta:
-        model = store.Store
-
+        model = Store
+        
+    def findOne(self, id):
+        return self.query.get(id)
+    
     def findAll(self):
-        return self.dump(self.query.all(), many=True)
-
+        return self.query.all()
+    
     def create(self, new_store):
-        id= db.session.add(new_store)
-        # db.session.commit()
-        return id
+        db.session.add(new_store)
+        db.session.commit()
+        return self.dump(new_store)

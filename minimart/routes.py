@@ -1,15 +1,15 @@
-from minimart import api, app
+from minimart import api, app, ma
 from flask_restx import Resource
 from minimart.controllers import store_controller
 from minimart.models import store as store_model
 
 
-ns_store = api.namespace('Stores', description='Stores endpints')
+ns_store = api.namespace('stores', description='Stores endpints')
 
 
-@ns_store.route('/stores', endpoint='stores')
+@ns_store.route('/', endpoint='stores')
 class StoreRoutes(Resource):
-    @ns_store.marshal_with(store_model.Store.swagger(), code=201)
+    @ns_store.marshal_with(store_model.Store.swagger(), code=200)
     def get(self):
         return store_controller.listStore()
 
@@ -20,16 +20,17 @@ class StoreRoutes(Resource):
         return store_controller.createStore(api.payload), 201
 
 
-@ns_store.route('/stores/<int:id>')
+@ns_store.route('/<int:id>')
 class storeWithRefRoutes(Resource):
-    def get(self):
-        return store_controller.listStore()
+    @ns_store.marshal_with(store_model.Store.swagger(), code=200)
+    def get(self, id):
+        return store_controller.getStore(id)
 
-    @ns_store.expect(store_model.Store.swagger())
-    def patch(self):
-        return store_controller.listStore()
+    @ns_store.expect(store_model.Store.swagger(True))
+    def patch(self, id):
+        return store_controller.getStore(id)
 
-    def delete(self):
+    def delete(self, id):
         return store_controller.listStore()
 
 
