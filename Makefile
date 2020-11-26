@@ -6,6 +6,9 @@ clean:
 venv:
 	virtualenv --python=python3 venv && venv/bin/python setup.py develop
 
+dev: venv
+	FLASK_APP=minimart FLASK_ENV=development MINIMART_SETTINGS=../settings.cfg venv/bin/flask run
+
 run: venv
 	FLASK_APP=minimart MINIMART_SETTINGS=../settings.cfg venv/bin/flask run
 

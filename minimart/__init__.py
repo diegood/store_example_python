@@ -9,8 +9,10 @@ app = Flask(__name__)
 app.config.from_object('minimart.default_settings')
 app.config.from_envvar('MINIMART_SETTINGS')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "db.sqlite3")}'
-# db = SQLAlchemy(app, session_options={'autocommit': True, 'autoflush': False })
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+db = SQLAlchemy(app, session_options={"autoflush": False, "autocommit": False, "expire_on_commit": False})
+# db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
 
@@ -27,4 +29,5 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     
 import minimart.models
-import minimart.routes
+import minimart.controllers.stores
+import minimart.controllers.products

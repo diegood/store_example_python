@@ -29,7 +29,9 @@ class Store(db.Model):
             'address': fields.String(required=True, description='Pysical store address', example='742 Evergreen Terrace, Springfield'),
             'working_hours': fields.Nested(WorkingHours.swaggerSchema())
         }
+        base = api.model('StoreBase', schema)
         if edit:
             del schema['name']
             del schema['address']
-        return api.model('StoreBase', schema)
+        editable = api.model('StoreEditable', schema)
+        return editable if edit else base

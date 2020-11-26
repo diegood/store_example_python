@@ -24,19 +24,30 @@ class WorkingHours(db.Model):
 
     def __init__(self, **kwargs):
         self.monday_open = fields.datetime_from_iso8601(kwargs['monday_open'])
-        self.monday_close = fields.datetime_from_iso8601(kwargs['monday_close'])
-        self.tuesday_open = fields.datetime_from_iso8601(kwargs['tuesday_open'])
-        self.tuesday_close = fields.datetime_from_iso8601(kwargs['tuesday_close'])
-        self.wednesday_open = fields.datetime_from_iso8601(kwargs['wednesday_open'])
-        self.wednesday_close = fields.datetime_from_iso8601(kwargs['wednesday_close'])
-        self.thursaday_open = fields.datetime_from_iso8601(kwargs['thursaday_open'])
-        self.thursaday_close = fields.datetime_from_iso8601(kwargs['thursaday_close'])
+        self.monday_close = fields.datetime_from_iso8601(
+            kwargs['monday_close'])
+        self.tuesday_open = fields.datetime_from_iso8601(
+            kwargs['tuesday_open'])
+        self.tuesday_close = fields.datetime_from_iso8601(
+            kwargs['tuesday_close'])
+        self.wednesday_open = fields.datetime_from_iso8601(
+            kwargs['wednesday_open'])
+        self.wednesday_close = fields.datetime_from_iso8601(
+            kwargs['wednesday_close'])
+        self.thursaday_open = fields.datetime_from_iso8601(
+            kwargs['thursaday_open'])
+        self.thursaday_close = fields.datetime_from_iso8601(
+            kwargs['thursaday_close'])
         self.friday_open = fields.datetime_from_iso8601(kwargs['friday_open'])
-        self.friday_close = fields.datetime_from_iso8601(kwargs['friday_close'])
-        self.saturday_open = fields.datetime_from_iso8601(kwargs['saturday_open'])
-        self.saturday_close = fields.datetime_from_iso8601(kwargs['saturday_close'])
+        self.friday_close = fields.datetime_from_iso8601(
+            kwargs['friday_close'])
+        self.saturday_open = fields.datetime_from_iso8601(
+            kwargs['saturday_open'])
+        self.saturday_close = fields.datetime_from_iso8601(
+            kwargs['saturday_close'])
         self.sunday_open = fields.datetime_from_iso8601(kwargs['sunday_open'])
-        self.sunday_close = fields.datetime_from_iso8601(kwargs['sunday_close'])
+        self.sunday_close = fields.datetime_from_iso8601(
+            kwargs['sunday_close'])
 
     def swaggerSchema():
         return api.model('working_hours', {
