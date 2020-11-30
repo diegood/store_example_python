@@ -1,34 +1,48 @@
 from minimart import api
 from flask_restx import Resource
-from minimart.services import store_service
+from minimart.services import product_service
 from minimart.models.product import Product as product_model
+from minimart.models.product_stock import ProductStock as product_stock_model
 
 
-ns_store = api.namespace('products', description='Products endpints')
+ns_product = api.namespace('products', description='Products endpints')
 
 
-@ns_store.route('/', endpoint='products')
+@ns_product.route('/', endpoint='products')
 class ProductsResource(Resource):
-    @ns_store.marshal_with(product_model.swagger(), code=200)
+    @ns_product.marshal_with(product_model.swagger(), code=200)
     def get(self):
-        return store_service.listStore()
+        return product_service.listProduct()
 
-    @ns_store.doc('create a new store')
-    @ns_store.expect(product_model.swagger(edit=False))
-    @ns_store.marshal_with(product_model.swagger(), code=201)
+    @ns_product.doc('create a new Product')
+    @ns_product.expect(product_model.swagger(create=True))
+    @ns_product.marshal_with(product_model.swagger(create=True), code=201)
     def post(self):
-        return store_service.createStore(api.payload), 201
+        return product_service.createProduct(api.payload), 201
 
 
-@ns_store.route('/<int:id>')
+@ns_product.route('/<int:id>')
 class ProductsResourceWithRef(Resource):
-    @ns_store.marshal_with(product_model.swagger(), code=200)
-    def get(self, id):
-        return store_service.getStore(id), 200
+    @ns_product.marshal_with(product_model.swagger(), code=200)
+    def get(self, id, store=None):
+        return product_service.getProduct(id), 200
 
-    @ns_store.expect(product_model.swagger(edit=True))
+    @ns_product.expect(product_model.swagger())
     def patch(self, id):
-        return store_service.updateStore(id, api.payload), 202
+        return product_service.updateProduct(id, api.payload), 202
 
     def delete(self, id):
-        return store_service.deleteStore(id), 200
+        return product_service.deleteProduct(id), 200
+
+
+@ns_product.route('/<int:id>/stock')
+class ProductStockReource(Resource):
+    @ns_product.expect(product_stock_model.swagger(), 201)
+    def put(self, id):
+        return product_service.setStock(id, api.payload), 201
+
+
+@ns_product.route('/<int:id>/stock/store/<int:store_id>')
+class ProductStockByStoreReource(Resource):
+    def get(self, id, store_id):
+        return product_service.getProductStore(id, store_id), 200

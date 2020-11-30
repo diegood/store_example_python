@@ -1,14 +1,14 @@
-from minimart import db
+from minimart import db, api
+from minimart.models.product import Product
 from flask_restx import fields
 
 
 class ProductStock(db.Model):
     __tablename__ = 'products_stock'
     id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey(
-        'products.id'), nullable=False)
-    store_id = db.Column(db.Integer, db.ForeignKey(
-        'stores.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'), nullable=False)
+    product = db.relationship(Product, backref=db.backref('products', lazy='joined'))
     stock = db.Column(db.Integer)
 
     def swagger():

@@ -12,7 +12,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "db.s
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 db = SQLAlchemy(app, session_options={"autoflush": False, "autocommit": False, "expire_on_commit": False})
-# db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
 

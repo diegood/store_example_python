@@ -1,6 +1,6 @@
-from minimart.dao import store as dao
-from minimart.models import store as model
-from minimart.models import working_hours as working_hours_model
+from minimart.dao import product as dao
+from minimart.models import product as model
+from minimart.models import product_stock as product_stock_model
 from flask_restx import fields
 
 
@@ -10,6 +10,9 @@ def listProduct():
 
 def getProduct(id):
     return dao.ProductDao().findOne(id)
+
+def getProductStore(id, store_id):
+    return dao.ProductDao().findByParams({'id':id, 'store_id':store_id})
 
 
 def updateProduct(id, data):
@@ -22,10 +25,16 @@ def updateProduct(id, data):
 
 
 def createProduct(data):
-    wh = working_hours_model.WorkingHours(**data['working_hours'])
-    new_Product = model.Product(data['name'], data['logo'], data['address'], wh)
+    new_Product = model.Product(data['name'], data['category'])
     return dao.ProductDao().create(new_Product)
 
 
 def deleteProduct(id):
     return dao.ProductDao().delete(getProduct(id))
+
+def setStock(id, data):
+    new_product_stock = product_stock_model.ProductStock()
+    new_product_stock.product_id = id
+    new_product_stock.store_id = data['store_id']
+    new_product_stock.stock = data['stock']
+    return dao.ProductDao().updateStock(new_product_stock)
